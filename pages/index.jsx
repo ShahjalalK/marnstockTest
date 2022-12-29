@@ -1,13 +1,19 @@
-import BookLists from "./components/bookLists";
 
-export default function Home() {
-    
+export default function index() {
+
   return (
     <div>
-      <BookLists />
+      Hello Shahjalal
     </div>
   )
 }
+
+
+
+
+
+
+
 
 
 
