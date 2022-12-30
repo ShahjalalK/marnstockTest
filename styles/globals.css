@@ -7,4 +7,14 @@
     .container {
       @apply max-w-7xl mx-auto
     }
+    .model.active{
+      @apply fixed top-0 left-0 w-full h-screen flex justify-center items-center
+    }
+    .model{
+      @apply hidden
+    }
+  }
+
+  .model{
+    background: rgba(0,0,0,0.7);
   }

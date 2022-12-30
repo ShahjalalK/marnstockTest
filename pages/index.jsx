@@ -5,7 +5,7 @@ import baseUrl from '../confic/baseUrl'
 export default function Home({products}) {
   console.log(products)
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5  gap-3 mx-auto max-w-7xl py-5">     
+    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4  gap-3 mx-auto max-w-7xl py-5">     
       {products.map((item, index) => {
         return(
           <div className="border rounded overflow-hidden shadow">
