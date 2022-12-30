@@ -1,10 +1,11 @@
 import Link from 'next/link'
 import React from 'react'
+import baseUrl from '../confic/baseUrl'
 
 export default function Home({products}) {
   console.log(products)
   return (
-    <div className="grid grid-cols-5 gap-3 mx-auto max-w-7xl py-5">     
+    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5  gap-3 mx-auto max-w-7xl py-5">     
       {products.map((item, index) => {
         return(
           <div className="border rounded overflow-hidden shadow">
@@ -16,7 +17,7 @@ export default function Home({products}) {
               TK.{item.price}
             </div>
             <div className="text-lg p-5 text-orange-500">
-              <Link href="/">Product All Details</Link>
+              <Link href="/product/[id]" as={`/product/${item._id}`}>Product All Details</Link>
             </div>
           </div>
         )
@@ -27,7 +28,7 @@ export default function Home({products}) {
 
 
 export async function getStaticProps(context) {
-  const rs = await fetch("http://localhost:3000/api/store")
+  const rs = await fetch(`${baseUrl}/api/store`)
   const data = await rs.json()
   return {
     props: {
