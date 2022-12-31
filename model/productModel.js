@@ -2,22 +2,25 @@ import mongoose from "mongoose";
 
 const ProductScema = new mongoose.Schema({
     name: {
-        type : String,
-        required: true
+        type: String,
+        required : true,
+        trim: true,
     },
-    price : {
-        type : Number,
-        required : true
+    price: {
+        type: Number,
+        required : true,
+        trim : true,
     },
     description: {
-        type : String,
-        required: true
+        type: String,
+        required : true,
+        trim : true,
     },
-    mediaUrl: {
+    mediaUrl : {
         type : String,
-        required: true
+        required : true,
+        trim : true,
     }
 })
 
-
-export default mongoose.models.products || mongoose.model("products", ProductScema)
+export default mongoose.models.products || mongoose.model('products', ProductScema)

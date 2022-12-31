@@ -1,35 +1,39 @@
 import Link from 'next/link'
 import React from 'react'
-import baseUrl from '../confic/baseUrl'
+import baseUrl from '../helper/baseUrl'
 
 export default function Home({products}) {
   console.log(products)
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4  gap-3 mx-auto max-w-7xl py-5">     
-      {products.map((item, index) => {
-        return(
-          <div className="border rounded overflow-hidden shadow">
-            <div className="relative">
-              <img src={item.mediaUrl} alt="media" className="w-full h-full" />
-              <h1 className="absolute bottom-5 left-[50%] -translate-x-9 text-lg text-white">{item.name}</h1>
+    <div className="container grid grid-cols-4 gap-5 py-5">
+      {products ? <>
+        {products.map((item, index) => {
+          return(
+            <div key={index} className="border shadow-lg">
+              <div className="relative">
+                <img src={item.mediaUrl} alt="media" className="object-contain" />
+                <h1 className="absolute bottom-5 left-[50%] -translate-x-16 shadow-md text-lime-50 text-3xl">{item.name}</h1>
+              </div>
+              <div className="p-5 uppercase text-xl border-b">
+               USD.{item.price}
+              </div>
+              <div className="p-5">
+                <Link href="/product/[id]" as={`/product/${item._id}`} className="text-red-500 text-xl">Product All Details</Link>
+              </div>
             </div>
-            <div className="text-lg p-5 border-b">
-              TK.{item.price}
-            </div>
-            <div className="text-lg p-5 text-orange-500">
-              <Link href="/product/[id]" as={`/product/${item._id}`}>Product All Details</Link>
-            </div>
-          </div>
-        )
-      })}
-    </div>
+          )
+        })}
+      
+      </> : <>
+      <h1>Product Not Found</h1>
+      </>}
+      </div>
   )
 }
 
-
 export async function getStaticProps(context) {
-  const rs = await fetch(`${baseUrl}/api/store`)
-  const data = await rs.json()
+  const res = await fetch(`${baseUrl}/api/store`)
+  const data = await res.json()
   return {
     props: {
       products: data
