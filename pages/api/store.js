@@ -7,25 +7,56 @@ mongoDbConnect()
 
 export default async function handler(req, res) {
     try{
-        if(req.method === "POST"){
-            const newProduct = new productModel({
-                name: req.body.name,
-                price: req.body.price,
-                description: req.body.description,
-                mediaUrl: req.body.mediaUrl
-            })
-            await newProduct.save()
-            res.status(200).json({message: "Product Save"})
-        }else{
-          const product =  await productModel.find().sort({"name": 1})
-            res.status(200).json(product)
-        }   
-       
+
+        switch (req.method) {
+            case "GET":
+                await getAllProduct(req, res)
+                break;
+            case "POST":
+                await postAllProduct(req, res)
+                break;
+        }
+               
     }
     catch(error){
         console.log(error)
-        console.log("product Post error")
+        console.log("product error")
         process.exit(1)
     }
     
+  }
+
+
+  const getAllProduct = async (req, res) =>{
+    try{
+        const product =  await productModel.find().sort({"price":1})
+        res.status(200).json(product)
+    }
+    catch(error){
+        console.log(error)
+        console.log("product All Get Error")
+        process.exit(1)
+    }
+  }
+
+  const postAllProduct = async (req, res) => {
+    try{
+        const {name, price, description, mediaUrl} = req.body
+        if(!name || !price || !description || !mediaUrl){
+           return res.status(422).json({error: "Please all the fields"})
+        }
+        const newProduct = new productModel({
+            name,
+            price,
+            description,
+            mediaUrl
+        })
+        await newProduct.save()
+        res.status(200).json(newProduct)
+    }
+    catch(error){
+        console.log(error)
+        console.log("Product Post Error")
+        process.exit(1)
+    }
   }

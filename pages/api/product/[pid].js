@@ -5,10 +5,10 @@ export default async (req, res) => {
     try{
         switch (req.method) {
             case "GET":
-                findProduct(req, res)
+               await findProduct(req, res)
                 break;
             case "DELETE":
-                deleteProduct(req, res) 
+                await deleteProduct(req, res) 
         }
     }
     catch(error){

@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import baseUrl from '../helper/baseUrl'
@@ -11,7 +12,7 @@ export default function Home({products}) {
           return(
             <div key={index} className="border shadow-lg">
               <div className="relative">
-                <img src={item.mediaUrl} alt="media" className="object-contain" />
+                <img src={item.mediaUrl} alt="media" className="object-contain"  />
                 <h1 className="absolute bottom-5 left-[50%] -translate-x-16 shadow-md text-lime-50 text-3xl">{item.name}</h1>
               </div>
               <div className="p-5 uppercase text-xl border-b">
