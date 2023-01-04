@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import baseUrl from '../../helper/baseUrl'
 import {MdDelete} from 'react-icons/md'
 import { useRouter } from 'next/router'
+import {parseCookies} from 'nookies'
 
 export default function productId({product}) {
     const [model, setModel] = useState(false)
@@ -13,7 +14,12 @@ export default function productId({product}) {
         await res.json()
         router.push("/")
     }
-    console.log(product)
+    
+    const cookie = parseCookies()
+    const user = cookie.user ? JSON.parse(cookie.user) : ""
+
+
+
   return (
     <div>
         {product ?
@@ -27,7 +33,10 @@ export default function productId({product}) {
                     <img src={item.mediaUrl} alt="media" className="w-[60%]" />
                 </div>
                 <p className="mt-5">{item.description}</p>
-                <button onClick={() => setModel(!model)} className="flex items-center gap-2 mx-auto my-5 bg-red-500 px-3 py-1 text-lg text-white rounded uppercase"><MdDelete className="text-xl " /> Delete</button>
+
+                {user.role == 'admin' && user.role == 'root' 
+               &&  <button onClick={() => setModel(!model)} className="flex items-center gap-2 mx-auto my-5 bg-red-500 px-3 py-1 text-lg text-white rounded uppercase"><MdDelete className="text-xl " /> Delete</button> }
+
              </div>
 
              <div className={model ? "model active" : "model"} >
@@ -36,7 +45,8 @@ export default function productId({product}) {
                 <h2 className="text-lg capitalize">Are you sure you wont to delete product</h2>
                 <div className="flex items-center gap-1">
 
-                <button onClick={() => deleteProduct(item._id)} className="flex items-center gap-2 mx-auto my-5 bg-red-500 px-3 py-1 text-lg text-white rounded uppercase"><MdDelete className="text-xl " /> Delete</button>
+                
+               <button onClick={() => deleteProduct(item._id)} className="flex items-center gap-2 mx-auto my-5 bg-red-500 px-3 py-1 text-lg text-white rounded uppercase"><MdDelete className="text-xl " /> Delete</button>
 
                 <button onClick={() => setModel(!model)} className="flex items-center gap-2 mx-auto my-5 border text-gray-600 px-3 py-1 text-lg rounded uppercase">Close</button>
                 </div>

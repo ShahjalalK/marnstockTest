@@ -4,7 +4,7 @@ import React from 'react'
 import baseUrl from '../helper/baseUrl'
 
 export default function Home({products}) {
-  console.log(products)
+  
   return (
     <div className="container grid grid-cols-4 gap-5 py-5">
       {products ? <>

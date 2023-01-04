@@ -35,13 +35,13 @@ export default function Signup() {
   return (
     <div className="max-w-lg mx-auto py-5">
       <h3 className="text-5xl text-center uppercase">Sign Up</h3>
-      <form className="shadow" onSubmit={userSubmit}>
-            <input className='w-full border outline-none p-1 mt-5' type="text" placeholder='Name' value={name} onChange={(e) => setName(e.target.value)} />
+      <form className="shadow mt-5" onSubmit={userSubmit}>
+            <input className='w-full border outline-none p-1' type="text" placeholder='Name' value={name} onChange={(e) => setName(e.target.value)} />
             <input className='w-full border outline-none p-1 mt-5' type="email" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
             <input className='w-full border outline-none p-1 mt-5' type="password" placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
             {alert ? <p className="bg-orange-600 text-lg text-gray-300 p-2 rounded capitalize shadow">{alert}</p> : ""}
             <div className="py-5 flex flex-col mx-auto text-center space-y-5 items-center">
-            <button type='submit' className="px-5 text-lg py-1 bg-gray-800 text-white rounded">Signup</button>
+            <button type='submit' className="px-5 text-lg py-1 w-full bg-gray-800 text-white rounded">Signup</button>
             <Link href="/login" className="text-xl text-gray-700 capitalize font-medium">All ready I have a account</Link>
             </div>
 

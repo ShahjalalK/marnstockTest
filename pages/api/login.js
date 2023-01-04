@@ -21,8 +21,8 @@ export default async (req, res) => {
           const token =  jwt.sign({userId:user._id},process.env.JWT_SECRET,{
                expiresIn:"7d"
            })
-           const {name,role,email} = user
-           res.status(201).json({token,user:{name,role,email}})
+           const {name, role, email} = user
+           res.status(201).json({token, user:{name, role, email}})
        }else{
           return res.status(401).json({error:"email or password dont match"})
        }

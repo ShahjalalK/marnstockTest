@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import baseUrl from '../helper/baseUrl'
+import {parseCookies} from 'nookies'
 
 export default function Create() {
   const [name, setName] = useState("")
@@ -50,8 +51,8 @@ export default function Create() {
 
   return (
     <div className="max-w-xl mx-auto py-5">      
-    <form onSubmit={handelSubmit} className="shadow">     
-        <input type="text" placeholder="Name" className="w-full border p-1 mt-5 outline-none" 
+    <form onSubmit={handelSubmit} className="shadow mt-5">     
+        <input type="text" placeholder="Name" className="w-full border p-1 outline-none" 
         name="name"
         value={name}
         onChange={(e) => setName(e.target.value)}
@@ -71,11 +72,27 @@ export default function Create() {
         id="" cols="30" rows="10"></textarea>
          {alert ? <p className="bg-orange-600 text-lg text-gray-300 p-2 rounded capitalize shadow">{alert}</p> : ""}
         <div className="py-5">
-        <button type='submit' name='action' className="flex text-lg items-center gap-1 px-5 py-1 mx-auto bg-gray-800 text-white rounded">          
+        <button type='submit' name='action' className="w-full text-center text-lg px-5 py-1 bg-gray-800 text-white rounded">          
           Add Product         
         </button>
         </div>
     </form>
     </div>
   )
+}
+
+
+
+
+export async function getServerSideProps(ctx) {
+  const cookie = parseCookies(ctx)  
+  const user = cookie.user ? JSON.parse(cookie.user) : ""
+  if(user.role != 'admin'){
+    const {res} = ctx
+    res.writeHead(302, {location: "/"})
+    res.end()
+  }
+  return {
+    props: {}
+  }
 }
