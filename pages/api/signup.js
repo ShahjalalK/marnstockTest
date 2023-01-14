@@ -1,5 +1,6 @@
 import mongoDbConnect from "../../helper/mongoDbConnect"; 
 import userModel from "../../model/userModel";
+import cartModel from "../../model/cartModel";
 import bcrypt from 'bcrypt'
 
 mongoDbConnect()
@@ -21,10 +22,9 @@ export default async (req, res) => {
             email,
             password : hashPassword
         })
-
-        console.log(newUser)
-        
+                
         await newUser.save()
+        await new cartModel({user: newUser._id}).save()
        res.status(201).json({message: "signup access"})
 
     }

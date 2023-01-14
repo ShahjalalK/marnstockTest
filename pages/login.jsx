@@ -26,8 +26,7 @@ export default function Login() {
     const res2 = await res.json()
     if(res2.error){
       setAlert(res2.error)
-    }else{
-       console.log(res2)
+    }else{      
        cookie.set('token',res2.token)
        cookie.set('user', JSON.stringify(res2.user))
        router.push('/account')
