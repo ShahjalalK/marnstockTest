@@ -24,7 +24,9 @@ export default async (req, res) => {
         })
                 
         await newUser.save()
-        await new cartModel({user: newUser._id}).save()
+        await new cartModel({user : newUser._id}).save()
+    
+
        res.status(201).json({message: "signup access"})
 
     }
