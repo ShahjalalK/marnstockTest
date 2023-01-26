@@ -4,6 +4,7 @@ import Cookies from "js-cookie"
 import { useRouter } from "next/router"
 import Link from "next/link"
 import { useState } from "react"
+import StripeCheckout from 'react-stripe-checkout';
 
 export default function Cart({error, products}) {
   const [cProducts, setCProducts] = useState(products)
@@ -54,7 +55,7 @@ export default function Cart({error, products}) {
            <img src={item.product.mediaUrl} alt="" className=" w-16 " />
            <div className="flex flex-col space-y-1">
              <h6 className="text-lg">{item.product.name}</h6>
-             <h6 className="text-lg">{item.quantity} X ৳{item.product.price}</h6>
+             <h6 className="text-lg">{item.quantity} X ${item.product.price}</h6>
              <button className="px-5 py-1 bg-gray-500 text-gray-50 text-sm" onClick={() => removeHandler(item.product._id)}>Remove</button>
            </div>
          </div>
@@ -64,8 +65,18 @@ export default function Cart({error, products}) {
         <hr />
       </div>
      <div className="flex items-center justify-between max-w-5xl mx-auto">
-        <h5 className="text-xl capitalize"> total = ৳{price}</h5>
+        <h5 className="text-xl capitalize"> total = ${price}</h5>
+        <StripeCheckout
+        name="my store"
+        amount={price}
+        image={products[0].product.mediaUrl}
+        currency ="USD"
+        shippingAddress="true"
+        billingAddress="true"
+        zipCode="true"
+        >
         <button className="px-5 py-1 bg-gray-500 text-gray-50 text-sm">Checkout</button>
+        </StripeCheckout>
       </div>
       
     </>
