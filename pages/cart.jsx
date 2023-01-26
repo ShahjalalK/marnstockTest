@@ -7,6 +7,7 @@ import { useState } from "react"
 
 export default function Cart({error, products}) {
   const [cProducts, setCProducts] = useState(products)
+  let price = 0
   const {token} = parseCookies()
   const router = useRouter()
   const removeHandler = async (pid) => {   
@@ -47,17 +48,25 @@ export default function Cart({error, products}) {
   return(
     <>
     {cProducts.map((item, index) => {
+      price = price + item.quantity * item.product.price
        return(
          <div key={index} className="flex items-center gap-2 max-w-5xl mx-auto py-5">
            <img src={item.product.mediaUrl} alt="" className=" w-16 " />
            <div className="flex flex-col space-y-1">
              <h6 className="text-lg">{item.product.name}</h6>
-             <h6 className="text-lg">{item.quantity} X {item.product.price}</h6>
+             <h6 className="text-lg">{item.quantity} X ৳{item.product.price}</h6>
              <button className="px-5 py-1 bg-gray-500 text-gray-50 text-sm" onClick={() => removeHandler(item.product._id)}>Remove</button>
            </div>
          </div>
        )
      })}
+     <div className="max-w-5xl mx-auto py-5">
+        <hr />
+      </div>
+     <div className="flex items-center justify-between max-w-5xl mx-auto">
+        <h5 className="text-xl capitalize"> total = ৳{price}</h5>
+        <button className="px-5 py-1 bg-gray-500 text-gray-50 text-sm">Checkout</button>
+      </div>
       
     </>
     

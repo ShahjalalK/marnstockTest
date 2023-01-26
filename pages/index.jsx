@@ -6,7 +6,7 @@ import baseUrl from '../helper/baseUrl'
 export default function Home({products}) {
   
   return (
-    <div className="container grid grid-cols-4 gap-5 py-5">
+    <div className="container grid grid-cols-4 gap-5 py-5">      
       {products ? <>
         {products.map((item, index) => {
           return(
@@ -15,8 +15,8 @@ export default function Home({products}) {
                 <img src={item.mediaUrl} alt="media" className="object-contain"  />
                 <h1 className="absolute bottom-5 left-[50%] -translate-x-16 shadow-md text-lime-50 text-3xl">{item.name}</h1>
               </div>
-              <div className="p-5 uppercase text-xl border-b">
-               USD.{item.price}
+              <div className="p-5 uppercase text-xl border-b font-bold">
+             <span className="text-3xl"> ৳</span>{item.price}
               </div>
               <div className="p-5">
                 <Link href="/product/[id]" as={`/product/${item._id}`} className="text-red-500 text-xl">Product All Details</Link>
@@ -28,6 +28,7 @@ export default function Home({products}) {
       </> : <>
       <h1>Product Not Found</h1>
       </>}
+      
       </div>
   )
 }
